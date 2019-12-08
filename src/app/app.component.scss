@@ -1,0 +1,10 @@
+.container {
+  margin-top: 1rem;
+}
+
+.mynav {
+  display: flex;
+  button:not(:first-child) {
+    margin-left: 1rem;
+  }
+}
