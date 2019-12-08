@@ -1,3 +1,4 @@
+import { appReducers } from './store/app.reducer';
 import { PostsModule } from './posts/posts.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,7 @@ import { postsReducer } from './posts/store/posts.reducer';
     BrowserModule,
     PostsModule,
     AppRoutingModule,
-    StoreModule.forRoot({posts: postsReducer}),
+    StoreModule.forRoot(appReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 50,
     }),

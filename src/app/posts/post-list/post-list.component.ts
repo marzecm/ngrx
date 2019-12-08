@@ -1,6 +1,11 @@
+import { map } from 'rxjs/operators';
+import { Post } from './../post.model';
+import { AppState } from './../../store/app.reducer';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+
+import * as fromPosts from '../store/posts.reducer';
 
 @Component({
   selector: 'app-post-list',
@@ -9,11 +14,18 @@ import { Observable } from 'rxjs';
 })
 export class PostListComponent implements OnInit {
 
-  public posts$: Observable<any>;
+  public posts$: Observable<fromPosts.State>;
 
-  constructor(private store: Store<any>) { }
+  public posts: Post[];
+  public isLoading: boolean;
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.posts$ = this.store.select('posts');
+
+    this.posts$.pipe(
+      map((s: fromPosts.State) => s.posts),
+    ).subscribe((posts: Post[]) => this.posts = posts);
   }
 }

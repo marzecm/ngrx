@@ -19,3 +19,9 @@
 # Situation (display posts state in component)
 
 1. Select state from store and display it (no typing at the moment)
+
+# Situation (add types)
+
+1. Create global ```appState```
+2. Apply types on store and state selection
+3. Show different ways to read state
