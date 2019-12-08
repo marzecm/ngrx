@@ -13,3 +13,9 @@
 
 1. Create interface describing posts state. See ```State``` in posts.reducer.ts-node
 2. Create ```initialState``` and use it to initalize your store.
+
+---
+
+# Situation (display posts state in component)
+
+1. Select state from store and display it (no typing at the moment)
