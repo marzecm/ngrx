@@ -8,3 +8,8 @@
 <b>posts: </b>{{ (posts$ | async).posts | json}}
 <br/><br/>
 <b>posts property of component: </b> {{ posts | json }}
+<br/><br/>
+
+<button class="btn btn-info" (click)="onLoadPosts()">Load Posts</button>
+<button class="btn btn-success" (click)="onAddPost()">Add Post</button>
+<button class="btn btn-danger" (click)="onRemovePost(0)">Remove Post(0)</button>

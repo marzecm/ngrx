@@ -1,4 +1,6 @@
 import { Post } from './../post.model';
+import * as PostActions from './posts.actions';
+
 export interface State {
   posts: Post[];
   loading: boolean;
@@ -23,6 +25,27 @@ const initialState: State = {
   ],
 };
 
-export function postsReducer(state = initialState, action) {
-  return state;
+export function postsReducer(state = initialState, action: PostActions.PostsActions): State {
+  switch(action.type) {
+    case PostActions.LOAD_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case PostActions.ADD_POST:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+      };
+    case PostActions.REMOVE_POST:
+      const newPosts = state.posts.filter(
+        (_, index: number) => index !== action.payload,
+      );
+      return {
+        ...state,
+        posts: newPosts,
+      };
+    default:
+    return state;
+  }
 }

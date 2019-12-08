@@ -25,3 +25,9 @@
 1. Create global ```appState```
 2. Apply types on store and state selection
 3. Show different ways to read state
+
+# Situation (introducing actions)
+
+1. Create actions and update posts reducer
+2. Dispatch actions from component
+3. Observe store state modifications in Store DevTools. Explore Action, State and Diff buttons
