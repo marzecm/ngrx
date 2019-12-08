@@ -5,11 +5,22 @@
 <br/><br/>
 <b>loading: </b>{{ (posts$ | async).loading }}
 <br/><br/>
-<b>posts: </b>{{ (posts$ | async).posts | json}}
+<b>posts: </b>{{ (allPosts$ | async) | json}}
 <br/><br/>
 <b>posts property of component: </b> {{ posts | json }}
 <br/><br/>
+<b>posts entities</b> {{ postsEntities$ | async | json }}
+<br/><br/>
+<b>loading property of component</b> {{  isLoading }}
+<br/><br/>
+<b>posts count</b> {{  postsCount }}
+<br/><br/>
+
+
+<ul>
+  <li *ngFor="let post of allPosts$ | async"><button class="btn btn-danger" (click)="onRemovePost(post.id)">X</button> {{ post | json }}</li>
+</ul>
 
 <button class="btn btn-info" (click)="onLoadPosts()">Load Posts</button>
 <button class="btn btn-success" (click)="onAddPost()">Add Post</button>
-<button class="btn btn-danger" (click)="onRemovePost(0)">Remove Post(0)</button>
+<button class="btn btn-warning" (click)="onLoadingPostsStart()">Loading Posts Start</button>

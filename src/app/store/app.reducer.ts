@@ -5,6 +5,6 @@ export interface AppState {
   posts: fromPosts.State;
 }
 
-export const appReducers: ActionReducerMap<AppState, any> = {
+export const appReducers: ActionReducerMap<AppState> = {
   posts: fromPosts.postsReducer,
 };

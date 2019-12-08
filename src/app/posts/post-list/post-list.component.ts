@@ -1,12 +1,12 @@
-import { map } from 'rxjs/operators';
 import { Post } from './../post.model';
 import { AppState } from './../../store/app.reducer';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromPosts from '../store/posts.reducer';
 import * as PostActions from '../store/posts.actions';
+import { Dictionary } from '@ngrx/entity';
 
 @Component({
   selector: 'app-post-list',
@@ -17,17 +17,46 @@ export class PostListComponent implements OnInit {
 
   public posts$: Observable<fromPosts.State>;
 
+  public allPosts$: Observable<Post[]>;
+
+  public postsEntities$: Observable<Dictionary<Post>>;
+
   public posts: Post[];
+
   public isLoading: boolean;
+
+  public postsCount: number;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.posts$ = this.store.select('posts');
+    this.posts$ = this.store.pipe(
+      select(fromPosts.getPostsState),
+    );
 
-    this.posts$.pipe(
-      map((s: fromPosts.State) => s.posts),
-    ).subscribe((posts: Post[]) => this.posts = posts);
+    this.postsEntities$ = this.store.pipe(
+      select(fromPosts.selectPostsEntities),
+    );
+
+    this.allPosts$ = this.store.pipe(
+      select(fromPosts.selectAllPost),
+    );
+
+    this.allPosts$.subscribe(
+      (posts: Post[]) => this.posts = posts,
+    );
+
+    this.store.pipe(
+      select(fromPosts.selectLoading),
+    ).subscribe(
+      (loading: boolean) => this.isLoading = loading,
+    );
+
+    this.store.pipe(
+      select(fromPosts.selectPostsCount),
+    ).subscribe(
+      (count: number) => this.postsCount = count,
+    );
   }
 
   public onLoadPosts() {
@@ -46,6 +75,10 @@ export class PostListComponent implements OnInit {
 
   public onRemovePost(index: number) {
     this.store.dispatch(new PostActions.RemovePost(index));
+  }
+
+  public onLoadingPostsStart() {
+    this.store.dispatch(new PostActions.LoadPostsStart());
   }
 }
 

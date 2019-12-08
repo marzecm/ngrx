@@ -31,3 +31,9 @@
 1. Create actions and update posts reducer
 2. Dispatch actions from component
 3. Observe store state modifications in Store DevTools. Explore Action, State and Diff buttons
+
+# Situation (entities approach)
+
+1. More efficient to manage large collections (faster lookups by id ```entities``` map, preserve order ```ids``` array)
+2. Simpler reducer code
+3. Discover adapter, selectors
